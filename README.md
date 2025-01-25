@@ -30,6 +30,11 @@ git clone https://github.com/PlichtaM/Component-Generator-API.git
 cd component-generator
 ```
 
+Zmień nazwę `.env.example` na `.env`
+```bash
+mv .env.example .env
+```
+
 Instalacja zależności:
 
 ```bash
