@@ -18,7 +18,7 @@ REST API do generowania interaktywnych komponentów w formie plików HTML/CSS/JS
 ### Wymagania wstępne
 
 - Docker
-- PHP 8.3+
+- PHP 8.2.27+
 - Composer
 
 ### Instalacja

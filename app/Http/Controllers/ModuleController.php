@@ -12,7 +12,6 @@ class ModuleController extends Controller
 {
     public function store(Request $request)
     {
-        // Walidacja
         $validator = Validator::make($request->all(), [
             'width' => 'required|integer',
             'height' => 'required|integer',
@@ -24,7 +23,6 @@ class ModuleController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        // Zapisz moduł
         $module = Module::create($request->all());
 
         return response()->json(['id' => $module->id], 201);
@@ -34,18 +32,15 @@ class ModuleController extends Controller
     {
         $module = Module::findOrFail($id);
 
-        // Utwórz tymczasowy folder
         $tempDir = sys_get_temp_dir() . '/module_' . $id;
         if (!file_exists($tempDir)) {
             mkdir($tempDir);
         }
 
-        // Generuj pliki
         $this->generateHTML($module, $tempDir);
         $this->generateCSS($module, $tempDir);
         $this->generateJS($module, $tempDir);
 
-        // Spakuj do ZIP
         $zipPath = $tempDir . '/module.zip';
         $zip = new ZipArchive;
         $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
@@ -56,7 +51,6 @@ class ModuleController extends Controller
 
         $zip->close();
 
-        // Wyślij ZIP
         return response()->download($zipPath)->deleteFileAfterSend(true);
     }
 
